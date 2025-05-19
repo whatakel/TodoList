@@ -2,20 +2,20 @@
 
 ### Estrutura do projeto
 
-TodoApp/
-├── Controllers/ (Métodos)
-│   └── GetTasksController.cs 
-│   └── PostTaskController.cs
-│   └── DeleteTaskController.cs
-│
-├── Models/ (Entidade)
-│   └── TodoTask.cs
-│
-├── Data/ (Banco de dados)
-│   └── AppDbContext.cs
-│
-├── Program.cs
-├── TodoApp.
+    TodoApp/
+    ├── Controllers/ (Métodos)
+    │   └── GetTasksController.cs 
+    │   └── PostTaskController.cs
+    │   └── DeleteTaskController.cs
+    │
+    ├── Models/ (Entidade)
+    │   └── TodoTask.cs
+    │
+    ├── Data/ (Banco de dados)
+    │   └── AppDbContext.cs
+    │
+    ├── Program.cs
+    ├── TodoApp.
 
 A estrutura descrita acima não está considerando as pastas criadas com o comando `dotnet new webapi`, apenas a estrutura considerando MVC e BD.
 
