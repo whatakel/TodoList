@@ -1,6 +1,6 @@
 # TodoList (Gerenciador de tarefas)
 
-### Estrutura do projeto
+### Estrutura do projeto MVC
 
     TodoApp/
     ├── Controllers/ (Métodos)
