@@ -31,23 +31,23 @@ O método DELETE em uma API serve para apagar algo do sistema. No caso de uma li
 
 1. **Importação do namespace**
 
-    using TodoList.Models;
+        using TodoList.Models;
    
 
 Importa a definição das entidades, como a classe da tarefa, para usar no código.
 
 2. **Declaração da classe estática**
 
-    public static class Rota_DELETE 
-    {
+        public static class Rota_DELETE 
+        {
    
 
 A classe Rota_DELETE é estática e serve para organizar a rota DELETE da API.
 
 3. **Método de extensão para o WebApplication:**
 
-      public static void MapDeleteRoutes(this WebApplication app)
-    {
+          public static void MapDeleteRoutes(this WebApplication app)
+        {
    
 
 Este método é uma extensão para a classe WebApplication do ASP.NET Core. Usar o this WebApplication app permite que você chame esse método diretamente sobre uma instância do WebApplication (no Program.cs), para adicionar rotas ao pipeline da aplicação.
