@@ -31,7 +31,8 @@ O método DELETE em uma API serve para apagar algo do sistema. No caso de uma li
 
 1. **Importação do namespace**
 
-    uusing TodoList.Models;
+    using TodoList.Models;
+   
 
 Importa a definição das entidades, como a classe da tarefa, para usar no código.
 
@@ -39,6 +40,7 @@ Importa a definição das entidades, como a classe da tarefa, para usar no códi
 
     public static class Rota_DELETE 
     {
+   
 
 A classe Rota_DELETE é estática e serve para organizar a rota DELETE da API.
 
@@ -46,6 +48,7 @@ A classe Rota_DELETE é estática e serve para organizar a rota DELETE da API.
 
       public static void MapDeleteRoutes(this WebApplication app)
     {
+   
 
 Este método é uma extensão para a classe WebApplication do ASP.NET Core. Usar o this WebApplication app permite que você chame esse método diretamente sobre uma instância do WebApplication (no Program.cs), para adicionar rotas ao pipeline da aplicação.
 
@@ -53,6 +56,7 @@ Este método é uma extensão para a classe WebApplication do ASP.NET Core. Usar
 
      app.MapDelete("/tarefas/{id}", async (int id, AppDbContext context) =>
     {
+   
 
 `app.MapDelete` cria um endpoint que responde a requisições HTTP DELETE. `"/tarefas/{id}"` indica que a URL deve ter a forma `/tarefas/algumNumero`, onde `algumNumero` será capturado e usado como o parâmetro `id`.
 
@@ -67,6 +71,7 @@ Este método é uma extensão para a classe WebApplication do ASP.NET Core. Usar
 5. **Busca da tarefa no banco**
 
     var tarefa = await context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
+   
 
 `context.Tasks` é o DbSet que representa a tabela de tarefas no banco.
 
@@ -78,6 +83,7 @@ O `await` indica que essa é uma operação assíncrona, não bloqueia a thread 
 
     if (tarefa == null)
         return Results.BadRequest("Tarefa não encontrada.");
+   
 
 Se a tarefa buscada for null, significa que não existe tarefa com aquele ID.
 
@@ -88,6 +94,7 @@ Esse código poderia retornar 404 (NotFound) também, mas aqui optou-se por 400.
 7. **Remoção da tarefa**
 
     context.Tasks.Remove(tarefa);
+   
 
 Marca a entidade tarefa para remoção do banco de dados.
 
@@ -96,6 +103,7 @@ Essa operação ainda não aplica a exclusão no banco, só sinaliza que essa ta
 8. **Persistência da exclusão**
 
     await context.SaveChangesAsync();
+   
 
 Executa a operação no banco de dados de forma assíncrona, aplicando todas as mudanças pendentes (nesse caso, a remoção da tarefa).
 
@@ -104,6 +112,7 @@ O `await` garante que a operação seja concluída antes de continuar.
 9. **Resposta para o cliente**
 
     return Results.Ok("Tarefa deletada com sucesso.");
+   
 
 Retorna um código HTTP 200 OK, que indica sucesso na operação.
 
