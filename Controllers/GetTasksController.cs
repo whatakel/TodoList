@@ -7,7 +7,7 @@ using TodoList.Models;
 
 namespace TodoList.Routes;
 
-public static class RotasGet
+public static class Controllers
 {
     public static void MapGetRotas(this WebApplication app)
     {
@@ -55,7 +55,7 @@ public static class RotasGet
             return Results.Ok(tarefaFormatada);
 
             //para o proprio usuario falar q terminou uma atividade teria q usar o put q agt n pode usar na ativiade ent todas as att vao ficar com data de inicio e fim da tarefa igual
-            
+
         });
     }
 }
