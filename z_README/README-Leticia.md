@@ -58,9 +58,9 @@ Este método é uma extensão para a classe WebApplication do ASP.NET Core. Usar
         {
    
 
-`app.MapDelete` cria um endpoint que responde a requisições HTTP DELETE. `"/tarefas/{id}"` indica que a URL deve ter a forma `/tarefas/algumNumero`, onde `algumNumero` será capturado e usado como o parâmetro `id`.
+`app.MapDelete` cria um endpoint que responde a requisições HTTP DELETE. "/tarefas/{id}" indica que a URL deve ter a forma /tarefas/algumNumero, onde algumNumero será capturado e usado como o parâmetro id.
 
-`"/tarefas/{id}"` indica que a URL deve ter a forma `/tarefas/algumNumero`, onde `algumNumero` será capturado e usado como o parâmetro `id`.
+`"/tarefas/{id}"` indica que a URL deve ter a forma /tarefas/algumNumero, onde algumNumero será capturado e usado como o parâmetro id.
 
 `async (int id, AppDbContext context) => { ... }` é a função assíncrona que será executada quando a rota for chamada. Essa função recebe:
 
