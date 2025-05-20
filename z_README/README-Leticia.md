@@ -54,8 +54,8 @@ Este método é uma extensão para a classe WebApplication do ASP.NET Core. Usar
 
 4. **Definição da rota DELETE**
 
-     app.MapDelete("/tarefas/{id}", async (int id, AppDbContext context) =>
-    {
+         app.MapDelete("/tarefas/{id}", async (int id, AppDbContext context) =>
+        {
    
 
 `app.MapDelete` cria um endpoint que responde a requisições HTTP DELETE. `"/tarefas/{id}"` indica que a URL deve ter a forma `/tarefas/algumNumero`, onde `algumNumero` será capturado e usado como o parâmetro `id`.
@@ -64,13 +64,13 @@ Este método é uma extensão para a classe WebApplication do ASP.NET Core. Usar
 
 `async (int id, AppDbContext context) => { ... }` é a função assíncrona que será executada quando a rota for chamada. Essa função recebe:
 
-- `int id`: o valor capturado da URL, que representa o ID da tarefa que queremos deletar.
+    - `int id`: o valor capturado da URL, que representa o ID da tarefa que queremos deletar.
 
-- `AppDbContext context`: uma instância do contexto do banco de dados, injetada automaticamente pelo ASP.NET Core para acessar os dados.
+    - `AppDbContext context`: uma instância do contexto do banco de dados, injetada automaticamente pelo ASP.NET Core para acessar os dados.
 
 5. **Busca da tarefa no banco**
 
-    var tarefa = await context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
+        var tarefa = await context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
    
 
 `context.Tasks` é o DbSet que representa a tabela de tarefas no banco.
@@ -81,7 +81,7 @@ O `await` indica que essa é uma operação assíncrona, não bloqueia a thread 
 
 6. **Verificação se a tarefa existe**
 
-    if (tarefa == null)
+        if (tarefa == null)
         return Results.BadRequest("Tarefa não encontrada.");
    
 
@@ -93,7 +93,7 @@ Esse código poderia retornar 404 (NotFound) também, mas aqui optou-se por 400.
 
 7. **Remoção da tarefa**
 
-    context.Tasks.Remove(tarefa);
+        context.Tasks.Remove(tarefa);
    
 
 Marca a entidade tarefa para remoção do banco de dados.
@@ -102,7 +102,7 @@ Essa operação ainda não aplica a exclusão no banco, só sinaliza que essa ta
 
 8. **Persistência da exclusão**
 
-    await context.SaveChangesAsync();
+        await context.SaveChangesAsync();
    
 
 Executa a operação no banco de dados de forma assíncrona, aplicando todas as mudanças pendentes (nesse caso, a remoção da tarefa).
@@ -111,7 +111,7 @@ O `await` garante que a operação seja concluída antes de continuar.
 
 9. **Resposta para o cliente**
 
-    return Results.Ok("Tarefa deletada com sucesso.");
+        return Results.Ok("Tarefa deletada com sucesso.");
    
 
 Retorna um código HTTP 200 OK, que indica sucesso na operação.
