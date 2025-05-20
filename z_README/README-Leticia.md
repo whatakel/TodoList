@@ -64,9 +64,9 @@ Este método é uma extensão para a classe WebApplication do ASP.NET Core. Usar
 
 `async (int id, AppDbContext context) => { ... }` é a função assíncrona que será executada quando a rota for chamada. Essa função recebe:
 
-    - `int id`: o valor capturado da URL, que representa o ID da tarefa que queremos deletar.
+- `int id`: o valor capturado da URL, que representa o ID da tarefa que queremos deletar.
 
-    - `AppDbContext context`: uma instância do contexto do banco de dados, injetada automaticamente pelo ASP.NET Core para acessar os dados.
+- `AppDbContext context`: uma instância do contexto do banco de dados, injetada automaticamente pelo ASP.NET Core para acessar os dados.
 
 5. **Busca da tarefa no banco**
 
