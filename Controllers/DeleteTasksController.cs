@@ -1,13 +1,20 @@
-[HttpDelete("{id}")]
-public async Task<ActionResult> DeleteTask(int id)
+using TodoList.Models; 
+
+public static class Rota_DELETE
 {
-    var task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
+    public static void MapDeleteRoutes(this WebApplication app)
+    {
+        app.MapDelete("/tarefas/{id}", async (int id, AppDbContext context) =>
+        {
+            var tarefa = await context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
 
-    if (task == null)
-        return BadRequest("Tarefa não encontrada.");
+            if (tarefa == null)
+                return Results.BadRequest("Tarefa não encontrada.");
 
-    _context.Tasks.Remove(task);
-    await _context.SaveChangesAsync();
+            context.Tasks.Remove(tarefa);
+            await context.SaveChangesAsync();
 
-    return Ok("Tarefa deletada com sucesso.");
+            return Results.Ok("Tarefa deletada com sucesso.");
+        });
+    }
 }
