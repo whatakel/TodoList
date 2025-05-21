@@ -1,17 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using TodoList.Data;
+using Microsoft.AspNetCore.Builder;
+using TodoList.Routes;
 
 var builder = WebApplication.CreateBuilder(args);
-
-//Configura EF Core com SQLite
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=TodoList.db"));
-
-// Configurar Controllers
-builder.Services.AddControllers();
-
 var app = builder.Build();
 
-app.MapControllers();
+app.MapGetRotas(); // adiciona as rotas que criamos
 
 app.Run();
