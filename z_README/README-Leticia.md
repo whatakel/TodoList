@@ -32,11 +32,11 @@
 
 ### Função
 
-    O método DELETE em uma API serve para apagar algo do sistema. No caso de uma lista de tarefas, ele exclui uma tarefa específica do banco de dados. Quando o cliente envia uma requisição DELETE, ele informa o ID da tarefa que quer apagar. Por exemplo: `DELETE /api/tasks/3`. A API procura essa tarefa. Se não achar, responde que ela não existe. Se encontrar, remove do banco e confirma que deu certo. Esse método faz parte do básico de uma API RESTful, junto com GET, POST e PUT. Ele garante que dados possam ser excluídos com clareza e segurança.
+ O método DELETE em uma API serve para apagar algo do sistema. No caso de uma lista de tarefas, ele exclui uma tarefa específica do banco de dados. Quando o cliente envia uma requisição DELETE, ele informa o ID da tarefa que quer apagar. Por exemplo: `DELETE /api/tasks/3`. A API procura essa tarefa. Se não achar, responde que ela não existe. Se encontrar, remove do banco e confirma que deu certo. Esse método faz parte do básico de uma API RESTful, junto com GET, POST e PUT. Ele garante que dados possam ser excluídos com clareza e segurança.
 
 ### Método DELETE
 
-Dentro da pasta **Controllers*.
+ Dentro da pasta **Controllers*.
 
 1. **Using**
 
@@ -58,7 +58,7 @@ Dentro da pasta **Controllers*.
         {
    
 
-Único método público chamado `ApagarTarefa`, responsável por localizar uma tarefa por ID e, se for permitido, remover ela da lista de tarefas.
+ Único método público chamado `ApagarTarefa`, responsável por localizar uma tarefa por ID e, se for permitido, remover ela da lista de tarefas.
 
 
 3. **Método de extensão para o WebApplication:**
@@ -66,7 +66,7 @@ Dentro da pasta **Controllers*.
           public bool ApagarTarefa(int id, string tipoUsuario, string nomeUsuario)
    
 
-Este método está recebendo 3 parâmetros: 
+ Este método está recebendo 3 parâmetros: 
 - `int id`: o ID da tarefa que queremos apagar.
 - `string `tipoUsuario`: o tipo de usuário logado ("admin" ou "usuário").
 - `string nomeUsuario`: o nome do usuário logado.
@@ -93,7 +93,7 @@ Este método está recebendo 3 parâmetros:
 - Isso significa que não é possível apagar uma tarefa que não existe.
   
 
-  Aqui ele verifica se o usuário que quer apagar tem permissão:
+ Aqui ele verifica se o usuário que quer apagar tem permissão:
 
         if (tipoUsuario == "admin" || tarefa.Usuario == nomeUsuario)
 
@@ -101,7 +101,7 @@ Este método está recebendo 3 parâmetros:
 - Se for o dono da tarefa (ou seja, o 'Usuario' da tarefa for igual ao 'nomeUsuario' informado.)
 
 
-Se qualquer uma for verdadeira, ele entra no bloco 'if'.
+ Se qualquer uma for verdadeira, ele entra no bloco 'if'.
 
     BancoDados.Tarefas.Remove(tarefa);
     BancoDados.SalvarDados();
