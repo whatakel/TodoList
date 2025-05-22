@@ -32,7 +32,7 @@
 
 ### Função
 
-O método DELETE em uma API serve para apagar algo do sistema. No caso de uma lista de tarefas, ele exclui uma tarefa específica do banco de dados. Quando o cliente envia uma requisição DELETE, ele informa o ID da tarefa que quer apagar. Por exemplo: `DELETE /api/tasks/3`. A API procura essa tarefa. Se não achar, responde que ela não existe. Se encontrar, remove do banco e confirma que deu certo. Esse método faz parte do básico de uma API RESTful, junto com GET, POST e PUT. Ele garante que dados possam ser excluídos com clareza e segurança.
+    O método DELETE em uma API serve para apagar algo do sistema. No caso de uma lista de tarefas, ele exclui uma tarefa específica do banco de dados. Quando o cliente envia uma requisição DELETE, ele informa o ID da tarefa que quer apagar. Por exemplo: `DELETE /api/tasks/3`. A API procura essa tarefa. Se não achar, responde que ela não existe. Se encontrar, remove do banco e confirma que deu certo. Esse método faz parte do básico de uma API RESTful, junto com GET, POST e PUT. Ele garante que dados possam ser excluídos com clareza e segurança.
 
 ### Método DELETE
 
