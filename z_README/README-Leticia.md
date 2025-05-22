@@ -51,6 +51,7 @@ Dentro da pasta **Controllers*.
 
 `TodoList.Data`: para acessar a "base de dados" (BancoDados).
 
+
 2. **A classe DeleteTarefaController**
 
           public class DeleteTarefaController
@@ -58,6 +59,7 @@ Dentro da pasta **Controllers*.
    
 
 Único método público chamado `ApagarTarefa`, responsável por localizar uma tarefa por ID e, se for permitido, remover ela da lista de tarefas.
+
 
 3. **Método de extensão para o WebApplication:**
 
@@ -68,6 +70,7 @@ Este método está recebendo 3 parâmetros:
 - `int id`: o ID da tarefa que queremos apagar.
 - `string `tipoUsuario`: o tipo de usuário logado ("admin" ou "usuário").
 - `string nomeUsuario`: o nome do usuário logado.
+
   
 4. **var tarefa = BancoDados.Tarefas.FirstOrDefault**
 
@@ -80,6 +83,7 @@ Este método está recebendo 3 parâmetros:
 - Se **não encontrar** -> `tarefa` fica null.
 - `FirstOrDefault` - > pega o **primeiro item que corresponde à condição, ou null se não tiver. 
 
+
 5. **Csharp**
 
        if (tarefa == null)
@@ -87,6 +91,7 @@ Este método está recebendo 3 parâmetros:
 
 - Se não encontrou nenhuma tarefa com esse ID, ele já retorna `false`.
 - Isso significa que não é possível apagar uma tarefa que não existe.
+  
 
   Aqui ele verifica se o usuário que quer apagar tem permissão:
 
@@ -94,6 +99,7 @@ Este método está recebendo 3 parâmetros:
 
 - Se for um "admin" pode apagar qualquer tarefa.
 - Se for o dono da tarefa (ou seja, o 'Usuario' da tarefa for igual ao 'nomeUsuario' informado.)
+
 
 Se qualquer uma for verdadeira, ele entra no bloco 'if'.
 
@@ -104,6 +110,7 @@ Se qualquer uma for verdadeira, ele entra no bloco 'if'.
 `BancoDados.Tarefas.Remove(tarefa)`: remove a tarefa da lista.
 `BancoDados.SalvarDados()`: isso é importante para manter a lista atualizada no "banco de dados".
 `return true`: indicando que a tarefa foi apagada com sucesso. 
+
 
     return false;
 
