@@ -2,118 +2,117 @@
 
 ### Estrutura do código
 
-    using TodoList.Models; 
+    using System;
+    using System.Linq;
+    using TodoList.Data;
 
-    public static class Rota_DELETE
+    namespace TodoList.Controllers
     {
-        public static void MapDeleteRoutes(this WebApplication app)
+        public class DeleteTarefaController
         {
-            app.MapDelete("/tarefas/{id}", async (int id, AppDbContext context) =>
+            public bool ApagarTarefa(int id, string tipoUsuario, string nomeUsuario)
             {
-                var tarefa = await context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
-    
+                var tarefa = BancoDados.Tarefas.FirstOrDefault(t => t.Id == id);
+
                 if (tarefa == null)
-                    return Results.BadRequest("Tarefa não encontrada.");
-    
-                context.Tasks.Remove(tarefa);
-                await context.SaveChangesAsync();
-    
-                return Results.Ok("Tarefa deletada com sucesso.");
-            });
+                    return false;
+
+            // Admin pode apagar qualquer tarefa
+                if (tipoUsuario == "admin" || tarefa.Usuario == nomeUsuario)
+                {
+                    BancoDados.Tarefas.Remove(tarefa);
+                    BancoDados.SalvarDados();
+                    return true;
+                }
+
+                return false;
+            }
         }
     }
 
 ### Função
 
-O método DELETE em uma API serve para apagar algo do sistema. No caso de uma lista de tarefas, ele exclui uma tarefa específica do banco de dados. Quando o cliente envia uma requisição DELETE, ele informa o ID da tarefa que quer apagar. Por exemplo: `DELETE /api/tasks/3`. A API procura essa tarefa. Se não achar, responde que ela não existe. Se encontrar, remove do banco e confirma que deu certo. Esse método faz parte do básico de uma API RESTful, junto com GET, POST e PUT. Ele garante que dados possam ser excluídos com clareza e segurança.
+ O método DELETE em uma API serve para apagar algo do sistema. No caso de uma lista de tarefas, ele exclui uma tarefa específica do banco de dados. Quando o cliente envia uma requisição DELETE, ele informa o ID da tarefa que quer apagar. Por exemplo: `DELETE /api/tasks/3`. A API procura essa tarefa. Se não achar, responde que ela não existe. Se encontrar, remove do banco e confirma que deu certo. Esse método faz parte do básico de uma API RESTful, junto com GET, POST e PUT. Ele garante que dados possam ser excluídos com clareza e segurança.
 
 ### Método DELETE
 
-1. **Importação do namespace**
+ Dentro da pasta **Controllers*.
 
-        using TodoList.Models;
+1. **Using**
+
+        using System;
+        using System.Linq;
+        using TodoList.Data;
    
 
-Importa a definição das entidades, como a classe da tarefa, para usar no código.
+`System`: para funcionalidades básicas.
 
-2. **Declaração da classe estática**
+`System.Linq`: para usar o método `FirstOrDefault`.
 
-        public static class Rota_DELETE 
+`TodoList.Data`: para acessar a "base de dados" (BancoDados).
+
+
+2. **A classe DeleteTarefaController**
+
+          public class DeleteTarefaController
         {
    
 
-A classe Rota_DELETE é estática e serve para organizar a rota DELETE da API.
+ Único método público chamado `ApagarTarefa`, responsável por localizar uma tarefa por ID e, se for permitido, remover ela da lista de tarefas.
+
 
 3. **Método de extensão para o WebApplication:**
 
-          public static void MapDeleteRoutes(this WebApplication app)
-        {
+          public bool ApagarTarefa(int id, string tipoUsuario, string nomeUsuario)
    
 
-Este método é uma extensão para a classe WebApplication do ASP.NET Core. Usar o this WebApplication app permite que você chame esse método diretamente sobre uma instância do WebApplication (no Program.cs), para adicionar rotas ao pipeline da aplicação.
+ Este método está recebendo 3 parâmetros: 
+- `int id`: o ID da tarefa que queremos apagar.
+- `string `tipoUsuario`: o tipo de usuário logado ("admin" ou "usuário").
+- `string nomeUsuario`: o nome do usuário logado.
 
-4. **Definição da rota DELETE**
+  
+4. **var tarefa = BancoDados.Tarefas.FirstOrDefault**
 
          app.MapDelete("/tarefas/{id}", async (int id, AppDbContext context) =>
         {
    
 
-`app.MapDelete` cria um endpoint que responde a requisições HTTP DELETE. "/tarefas/{id}" indica que a URL deve ter a forma /tarefas/algumNumero, onde algumNumero será capturado e usado como o parâmetro id.
+- Procura na lista de tarefas (`BancoDados.Tarefas`) uma tarefa que tenha o mesmo ID passado como parâmetro.
+- Se encontrar -> guarda na variável `tarefa`.
+- Se **não encontrar** -> `tarefa` fica null.
+- `FirstOrDefault` - > pega o **primeiro item que corresponde à condição, ou null se não tiver. 
 
-`"/tarefas/{id}"` indica que a URL deve ter a forma /tarefas/algumNumero, onde algumNumero será capturado e usado como o parâmetro id.
 
-`async (int id, AppDbContext context) => { ... }` é a função assíncrona que será executada quando a rota for chamada. Essa função recebe:
+5. **Csharp**
 
-- `int id`: o valor capturado da URL, que representa o ID da tarefa que queremos deletar.
+       if (tarefa == null)
+           return false;
 
-- `AppDbContext context`: uma instância do contexto do banco de dados, injetada automaticamente pelo ASP.NET Core para acessar os dados.
+- Se não encontrou nenhuma tarefa com esse ID, ele já retorna `false`.
+- Isso significa que não é possível apagar uma tarefa que não existe.
+  
 
-5. **Busca da tarefa no banco**
+ Aqui ele verifica se o usuário que quer apagar tem permissão:
 
-        var tarefa = await context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
-   
+        if (tipoUsuario == "admin" || tarefa.Usuario == nomeUsuario)
 
-`context.Tasks` é o DbSet que representa a tabela de tarefas no banco.
+- Se for um "admin" pode apagar qualquer tarefa.
+- Se for o dono da tarefa (ou seja, o 'Usuario' da tarefa for igual ao 'nomeUsuario' informado.)
 
-`FirstOrDefaultAsync(t => t.Id == id)` busca a primeira tarefa cujo Id seja igual ao parâmetro recebido. Se não encontrar nenhuma, retorna null.
 
-O `await` indica que essa é uma operação assíncrona, não bloqueia a thread e espera o resultado da consulta ao banco.
+ Se qualquer uma for verdadeira, ele entra no bloco 'if'.
 
-6. **Verificação se a tarefa existe**
+    BancoDados.Tarefas.Remove(tarefa);
+    BancoDados.SalvarDados();
+    return true;
 
-        if (tarefa == null)
-        return Results.BadRequest("Tarefa não encontrada.");
-   
+`BancoDados.Tarefas.Remove(tarefa)`: remove a tarefa da lista.
+`BancoDados.SalvarDados()`: isso é importante para manter a lista atualizada no "banco de dados".
+`return true`: indicando que a tarefa foi apagada com sucesso. 
 
-Se a tarefa buscada for null, significa que não existe tarefa com aquele ID.
 
-O método então retorna uma resposta HTTP 400 (BadRequest), com uma mensagem clara dizendo que a tarefa não foi encontrada.
+    return false;
 
-Esse código poderia retornar 404 (NotFound) também, mas aqui optou-se por 400.
-
-7. **Remoção da tarefa**
-
-        context.Tasks.Remove(tarefa);
-   
-
-Marca a entidade tarefa para remoção do banco de dados.
-
-Essa operação ainda não aplica a exclusão no banco, só sinaliza que essa tarefa deve ser removida.
-
-8. **Persistência da exclusão**
-
-        await context.SaveChangesAsync();
-   
-
-Executa a operação no banco de dados de forma assíncrona, aplicando todas as mudanças pendentes (nesse caso, a remoção da tarefa).
-
-O `await` garante que a operação seja concluída antes de continuar.
-
-9. **Resposta para o cliente**
-
-        return Results.Ok("Tarefa deletada com sucesso.");
-   
-
-Retorna um código HTTP 200 OK, que indica sucesso na operação.
-
-A resposta inclui uma mensagem simples confirmando que a tarefa foi deletada com sucesso.
+- Se o usuário não for admin e não for o dono da tarefa, então não tem permissão;
+- Nesse caso, retorna false -> tarefa não apagada.
