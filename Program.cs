@@ -28,6 +28,7 @@ namespace TodoList
             var getTarefas = new GetTarefasController();
             var postTarefa = new PostTarefaController();
             var deleteTarefa = new DeleteTarefaController();
+            var updateTarefa = new UpdateTaskController();
 
             bool continuar = true;
 
@@ -44,7 +45,7 @@ namespace TodoList
                         Console.WriteLine("== Tarefas ==");
                         foreach (var t in tarefas)
                         {
-                            Console.WriteLine($"ID: {t.Id} | Título: {t.Titulo} | Status: {t.Status} | Criado em: {t.CriadoEm} | Concluído em: {(t.ConcluidoEm.HasValue ? t.ConcluidoEm.ToString() : "não concluído")} | Usuário: {t.Usuario}");
+                            Console.WriteLine($"ID: {t.Id} | Título: {t.Titulo} | Status: {(t.Status ? "Concluído" : "Pendente")} | Criado em: {t.CriadoEm} | Concluído em: {(t.ConcluidoEm.HasValue ? t.ConcluidoEm.ToString() : "não concluído")} | Usuário: {t.Usuario}");
                         }
                         Console.WriteLine("\nPressione ENTER para voltar...");
                         Console.ReadLine();
@@ -61,13 +62,31 @@ namespace TodoList
 
                     case "3":  // Apagar tarefa
                         Console.Write("Digite o ID da tarefa que deseja apagar: ");
-                        if (int.TryParse(Console.ReadLine(), out int id))
+                        if (int.TryParse(Console.ReadLine(), out int idApagar))
                         {
-                            bool apagou = deleteTarefa.ApagarTarefa(id, tipoUsuario, nomeUsuario);
+                            bool apagou = deleteTarefa.ApagarTarefa(idApagar, tipoUsuario, nomeUsuario);
                             if (apagou)
                                 Console.WriteLine("Tarefa apagada com sucesso!");
                             else
                                 Console.WriteLine("Não foi possível apagar a tarefa (não encontrada ou sem permissão).");
+                        }
+                        else
+                        {
+                            Console.WriteLine("ID inválido.");
+                        }
+                        Console.WriteLine("Pressione ENTER para voltar...");
+                        Console.ReadLine();
+                        break;
+
+                    case "4":  // Atualizar status da tarefa
+                        Console.Write("Digite o ID da tarefa que deseja atualizar o status: ");
+                        if (int.TryParse(Console.ReadLine(), out int idAtualizar))
+                        {
+                            bool atualizou = updateTarefa.AtualizarStatus(idAtualizar, tipoUsuario, nomeUsuario);
+                            if (atualizou)
+                                Console.WriteLine("Status da tarefa atualizado com sucesso!");
+                            else
+                                Console.WriteLine("Não foi possível atualizar o status da tarefa (não encontrada ou sem permissão).");
                         }
                         else
                         {

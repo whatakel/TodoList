@@ -14,6 +14,7 @@ namespace TodoList.Controllers
                 Console.WriteLine("1 - Listar todas as tarefas");
                 Console.WriteLine("2 - Criar tarefa");
                 Console.WriteLine("3 - Apagar tarefa");
+                Console.WriteLine("4 - Atualizar status da tarefa");
                 Console.WriteLine("0 - Sair");
             }
             else
@@ -21,6 +22,7 @@ namespace TodoList.Controllers
                 Console.WriteLine("1 - Listar suas tarefas");
                 Console.WriteLine("2 - Criar tarefa");
                 Console.WriteLine("3 - Apagar tarefa");
+                Console.WriteLine("4 - Atualizar status da tarefa");
                 Console.WriteLine("0 - Sair");
             }
 
