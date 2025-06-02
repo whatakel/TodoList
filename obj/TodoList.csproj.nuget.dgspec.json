@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kelvi.KELVIN\\Desktop\\ADS\\Tópicos Especiais\\TodoList\\TodoList.csproj": {}
+    "C:\\Users\\letic\\OneDrive\\Word\\GitHub\\TodoList\\TodoList.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kelvi.KELVIN\\Desktop\\ADS\\Tópicos Especiais\\TodoList\\TodoList.csproj": {
+    "C:\\Users\\letic\\OneDrive\\Word\\GitHub\\TodoList\\TodoList.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kelvi.KELVIN\\Desktop\\ADS\\Tópicos Especiais\\TodoList\\TodoList.csproj",
+        "projectUniqueName": "C:\\Users\\letic\\OneDrive\\Word\\GitHub\\TodoList\\TodoList.csproj",
         "projectName": "TodoList",
-        "projectPath": "C:\\Users\\kelvi.KELVIN\\Desktop\\ADS\\Tópicos Especiais\\TodoList\\TodoList.csproj",
-        "packagesPath": "C:\\Users\\kelvi.KELVIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kelvi.KELVIN\\Desktop\\ADS\\Tópicos Especiais\\TodoList\\obj\\",
+        "projectPath": "C:\\Users\\letic\\OneDrive\\Word\\GitHub\\TodoList\\TodoList.csproj",
+        "packagesPath": "C:\\Users\\letic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\letic\\OneDrive\\Word\\GitHub\\TodoList\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kelvi.KELVIN\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\letic\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -37,8 +37,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -76,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.410/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
